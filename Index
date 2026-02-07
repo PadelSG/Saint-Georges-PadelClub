@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>SGPC - Club de Padel</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#6a1b9a">
+</head>
+  
+<body>
+  <div class="content">
+    <!-- NAVBAR -->
+    <nav class='navbar'>
+      <a href="index.html" class="logo"><span>SG</span>PC</a>
+      
+      <div class="menu-hamburger" onclick="toggleMenu()">
+        <i class="fa fa-bars"></i>
+      </div>
+      
+      <div class="nav-links">
+        <ul>
+          <li class="active"><a href="index.html">Accueil</a></li>
+          <li><a href="partenaires.html">Nos Partenaires</a></li>
+          <li><a href="reservation.html">Réserver</a></li> 
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Bienvenue au <span>SGPC</span></h1>
+        <p>Votre nouveau club de padel premium. Vivez l'expérience du padel dans un cadre moderne et convivial avec des installations de qualité professionnelle.</p>
+        <div class="hero-buttons">
+          <button class="hero-btn primary" onclick="window.location.href='reservation.html'">
+            Réserver un Court
+          </button>
+          <button class="hero-btn secondary" onclick="window.location.href='contact.html'">
+            Nous Découvrir
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATS SECTION -->
+    <section class="stats-section">
+      <div class="stats-container">
+        <div class="stat-card">
+          <i class="fas fa-border-all"></i>
+          <h3>4</h3>
+          <p>Courts Premium</p>
+        </div>
+        <div class="stat-card">
+          <i class="fas fa-clock"></i>
+          <h3>7j/7</h3>
+          <p>Ouvert</p>
+        </div>
+        <div class="stat-card">
+          <i class="fas fa-users"></i>
+          <h3>200+</h3>
+          <p>Membres</p>
+        </div>
+        <div class="stat-card">
+          <i class="fas fa-trophy"></i>
+          <h3>15+</h3>
+          <p>Tournois/An</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 1 : LE CLUB -->
+    <div class="content-section">
+      <div class="image-text-section">
+        <div class="image-container">
+          <img src="https://images.unsplash.com/photo-1622163642998-1ea32b0bbc67?q=80&w=2070" alt="Terrains de padel SGPC">
+        </div>
+        <div class="text-container">
+          <h2>Notre Club</h2>
+          <p>Le SGPC est né de la passion partagée entre un père et son fils pour le padel. Nous avons créé un espace moderne et accueillant où chacun peut pratiquer ce sport extraordinaire dans les meilleures conditions.</p>
+          <p>Notre club dispose de :</p>
+          <ul>
+            <li>4 courts couverts de dernière génération</li>
+            <li>Vestiaires et douches modernes</li>
+            <li>Espace club house convivial</li>
+            <li>Pro-shop avec matériel professionnel</li>
+            <li>Coaching par des professionnels certifiés</li>
+          </ul>
+          <a href="contact.html" class="cta-button">En savoir plus</a>
+        </div>
+      </div>
+
+      <!-- SECTION 2 : NOS SERVICES -->
+      <div class="image-text-section reverse">
+        <div class="image-container">
+          <img src="https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?q=80&w=2070" alt="Cours de padel">
+        </div>
+        <div class="text-container">
+          <h2>Nos Services</h2>
+          <p>Que vous soyez débutant ou joueur confirmé, le SGPC vous propose une gamme complète de services adaptés à tous les niveaux.</p>
+          <ul>
+            <li>Cours particuliers et collectifs</li>
+            <li>Stages intensifs pendant les vacances</li>
+            <li>Tournois internes et championnats</li>
+            <li>Location de courts à l'heure</li>
+            <li>Formules abonnement avantageuses</li>
+            <li>Organisation d'événements privés</li>
+          </ul>
+          <a href="reservation.html" class="cta-button">Réserver maintenant</a>
+        </div>
+      </div>
+
+      <!-- SECTION 3 : NOTRE VISION -->
+      <div class="image-text-section">
+        <div class="image-container">
+          <img src="https://images.unsplash.com/photo-1609710228159-0fa9bd7c0827?q=80&w=2070" alt="Ambiance club padel">
+        </div>
+        <div class="text-container">
+          <h2>Notre Vision</h2>
+          <p>Au SGPC, nous croyons que le padel est plus qu'un sport : c'est un véritable art de vivre. Notre mission est de créer une communauté passionnée et conviviale autour de cette discipline accessible à tous.</p>
+          <p>Nous nous engageons à :</p>
+          <ul>
+            <li>Offrir des installations de qualité premium</li>
+            <li>Promouvoir l'esprit sportif et la convivialité</li>
+            <li>Développer le padel dans notre région</li>
+            <li>Accompagner chaque joueur dans sa progression</li>
+          </ul>
+          <a href="partenaires.html" class="cta-button">Nos Partenaires</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>SGPC Club</h3>
+        <p>Votre club de padel premium pour tous les niveaux. Rejoignez notre communauté passionnée !</p>
+      </div>
+      
+      <div class="footer-section">
+        <h3>Liens Rapides</h3>
+        <a href="index.html">Accueil</a>
+        <a href="partenaires.html">Nos Partenaires</a>
+        <a href="reservation.html">Réserver</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      
+      <div class="footer-section">
+        <h3>Contact</h3>
+        <p><i class="fas fa-map-marker-alt"></i> Votre Ville, France</p>
+        <p><i class="fas fa-phone"></i> 06 XX XX XX XX</p>
+        <p><i class="fas fa-envelope"></i> contact@sgpc-padel.fr</p>
+      </div>
+      
+      <div class="footer-section">
+        <h3>Horaires</h3>
+        <p>Lundi - Vendredi: 8h - 23h</p>
+        <p>Samedi - Dimanche: 9h - 22h</p>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>&copy; 2025 SGPC - Club de Padel - Tous droits réservés</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
