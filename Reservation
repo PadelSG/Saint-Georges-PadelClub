@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Réservation - SGPC</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#4a148c">
+  
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Raleway:wght@300;400;600;700;800&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      text-decoration: none;
+      list-style: none;
+    }
+
+    html {
+      min-height: 100vh;
+      width: 100%;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+    
+    html::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #000000 100%);
+      z-index: -2;
+    }
+
+    html::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-image: 
+        radial-gradient(circle at 20% 50%, rgba(156, 39, 176, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(171, 71, 188, 0.1) 0%, transparent 50%);
+      z-index: -1;
+    }
+
+    body {
+      background: transparent;
+      color: #333;
+      min-height: 100vh;
+      width: 100%;
+      font-family: "Montserrat", sans-serif;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    .content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* NAVBAR */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 50px;
+      width: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 100;
+      background-color: rgba(20, 20, 20, 0.9);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 2px solid rgba(156, 39, 176, 0.3);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .navbar .logo {
+      color: white;
+      font-size: 2.2em;
+      font-weight: 800;
+      font-family: 'Raleway', sans-serif;
+      letter-spacing: 2px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .navbar .logo span {
+      color: #BA68C8;
+    }
+
+    .navbar .nav-links ul {
+      display: flex;
+      align-items: center;
+      gap: 35px;
+    }
+
+    .navbar .nav-links ul li a {
+      color: white;
+      font-weight: 600;
+      font-size: 1.05rem;
+      transition: all 0.3s;
+      padding: 8px 16px;
+      border-radius: 8px;
+    }
+
+    .navbar .nav-links ul li a:hover,
+    .navbar .nav-links ul li.active a {
+      color: #BA68C8;
+      background-color: rgba(156, 39, 176, 0.15);
+    }
+
+    .menu-hamburger {
+      display: none;
+      font-size: 1.8rem;
+      color: white;
+      cursor: pointer;
+      z-index: 300;
+    }
+
+    /* PAGE HEADER */
+    .page-header {
+      padding-top: 120px;
+      padding-bottom: 60px;
+      text-align: center;
+    }
+
+    .page-header-content {
+      background-color: rgba(20, 20, 20, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 50px 40px;
+      border-radius: 25px;
+      border: 2px solid rgba(156, 39, 176, 0.4);
+      max-width: 800px;
+      margin: 0 auto;
+      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5);
+    }
+
+    .page-header h1 {
+      font-size: 3rem;
+      color: white;
+      margin-bottom: 20px;
+      font-family: 'Raleway', sans-serif;
+      font-weight: 800;
+    }
+
+    .page-header h1 span {
+      color: #BA68C8;
+    }
+
+    .page-header p {
+      font-size: 1.2rem;
+      color: rgba(255, 255, 255, 0.9);
+      line-height: 1.7;
+    }
+
+    /* RESERVATION SECTION */
+    .reservation-section {
+      padding: 60px 20px 80px;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .reservation-container {
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: 40px;
+    }
+
+    /* BOOKING FORM */
+    .booking-form-card {
+      background-color: rgba(20, 20, 20, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 45px;
+      border-radius: 25px;
+      border: 2px solid rgba(156, 39, 176, 0.3);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .booking-form-card h2 {
+      color: white;
+      font-size: 2rem;
+      margin-bottom: 30px;
+      font-weight: 700;
+      border-left: 5px solid #BA68C8;
+      padding-left: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 25px;
+    }
+
+    .form-group label {
+      display: block;
+      color: rgba(255, 255, 255, 0.9);
+      font-weight: 600;
+      margin-bottom: 10px;
+      font-size: 1rem;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 14px 18px;
+      background-color: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(5px);
+      border: 2px solid rgba(156, 39, 176, 0.3);
+      border-radius: 10px;
+      color: white;
+      font-size: 1rem;
+      font-family: 'Montserrat', sans-serif;
+      transition: all 0.3s ease;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #BA68C8;
+      background-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .form-group select option {
+      background-color: #4a148c;
+      color: white;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    /* TIME SLOTS */
+    .time-slots {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .time-slot {
+      padding: 12px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border: 2px solid rgba(156, 39, 176, 0.3);
+      border-radius: 8px;
+      color: white;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 600;
+    }
+
+    .time-slot:hover {
+      background-color: rgba(156, 39, 176, 0.2);
+      border-color: #BA68C8;
+    }
+
+    .time-slot.selected {
+      background: linear-gradient(135deg, #BA68C8 0%, #8E24AA 100%);
+      border-color: #BA68C8;
+    }
+
+    .time-slot.unavailable {
+      opacity: 0.4;
+      cursor: not-allowed;
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+
+    /* SUBMIT BUTTON */
+    .submit-btn {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, #BA68C8 0%, #8E24AA 100%);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 1.15rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 20px rgba(156, 39, 176, 0.4);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 10px;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(156, 39, 176, 0.6);
+    }
+
+    /* PRICING SIDEBAR */
+    .pricing-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+
+    .pricing-card {
+      background-color: rgba(20, 20, 20, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 35px;
+      border-radius: 20px;
+      border: 2px solid rgba(156, 39, 176, 0.3);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .pricing-card h3 {
+      color: white;
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .pricing-card h3 i {
+      color: #BA68C8;
+      margin-right: 10px;
+    }
+
+    .price-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 0;
+      border-bottom: 1px solid rgba(156, 39, 176, 0.2);
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .price-item:last-child {
+      border-bottom: none;
+    }
+
+    .price-label {
+      font-weight: 500;
+    }
+
+    .price-value {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #BA68C8;
+    }
+
+    .info-card {
+      background-color: rgba(20, 20, 20, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 30px;
+      border-radius: 20px;
+      border: 2px solid rgba(156, 39, 176, 0.3);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .info-card h3 {
+      color: white;
+      font-size: 1.4rem;
+      margin-bottom: 20px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .info-card h3 i {
+      color: #BA68C8;
+    }
+
+    .info-card ul {
+      list-style: none;
+    }
+
+    .info-card ul li {
+      color: rgba(255, 255, 255, 0.9);
+      padding: 10px 0;
+      padding-left: 25px;
+      position: relative;
+    }
+
+    .info-card ul li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: #BA68C8;
+      font-weight: bold;
+    }
+
+    /* FOOTER */
+    footer {
+      background-color: rgba(10, 10, 10, 0.95);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      color: white;
+      padding: 40px 30px 20px;
+      width: 100%;
+      border-top: 2px solid rgba(156, 39, 176, 0.3);
+      margin-top: auto;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      margin-bottom: 30px;
+    }
+
+    .footer-section h3 {
+      color: #BA68C8;
+      font-size: 1.3rem;
+      margin-bottom: 15px;
+      font-weight: 700;
+    }
+
+    .footer-section p,
+    .footer-section a {
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 0.95rem;
+      line-height: 1.8;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .footer-section a:hover {
+      color: #BA68C8;
+    }
+
+    .footer-section i {
+      color: #BA68C8;
+      margin-right: 10px;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 20px;
+      border-top: 1px solid rgba(156, 39, 176, 0.2);
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.9rem;
+    }
+
+    /* RESPONSIVE */
+    @media screen and (max-width: 920px) {
+      .menu-hamburger {
+        display: block;
+      }
+
+      .nav-links {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: rgba(15, 15, 15, 0.98);
+        backdrop-filter: blur(15px);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 200;
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .nav-links ul {
+        flex-direction: column;
+        gap: 30px;
+      }
+
+      .nav-links ul li a {
+        font-size: 1.8rem;
+      }
+
+      .page-header {
+        padding-top: 100px;
+      }
+
+      .page-header h1 {
+        font-size: 2.2rem;
+      }
+
+      .reservation-container {
+        grid-template-columns: 1fr;
+      }
+
+      .pricing-sidebar {
+        order: -1;
+      }
+
+      .booking-form-card {
+        padding: 30px 25px;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .time-slots {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="content">
+    <!-- NAVBAR -->
+    <nav class='navbar'>
+      <a href="index.html" class="logo"><span>SG</span>PC</a>
+      
+      <div class="menu-hamburger" onclick="toggleMenu()">
+        <i class="fa fa-bars"></i>
+      </div>
+      
+      <div class="nav-links">
+        <ul>
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="partenaires.html">Nos Partenaires</a></li>
+          <li class="active"><a href="reservation.html">Réserver</a></li> 
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- PAGE HEADER -->
+    <section class="page-header">
+      <div class="page-header-content">
+        <h1><span>Réservez</span> votre court</h1>
+        <p>Choisissez votre créneau et réservez votre court en quelques clics. Simple, rapide et sécurisé.</p>
+      </div>
+    </section>
+
+    <!-- RESERVATION SECTION -->
+    <section class="reservation-section">
+      <div class="reservation-container">
+        <!-- BOOKING FORM -->
+        <div class="booking-form-card">
+          <h2>Formulaire de Réservation</h2>
+          
+          <form id="bookingForm" onsubmit="handleSubmit(event)">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="nom">Nom *</label>
+                <input type="text" id="nom" name="nom" required placeholder="Votre nom">
+              </div>
+              
+              <div class="form-group">
+                <label for="prenom">Prénom *</label>
+                <input type="text" id="prenom" name="prenom" required placeholder="Votre prénom">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="email">Email *</label>
+                <input type="email" id="email" name="email" required placeholder="votre@email.com">
+              </div>
+              
+              <div class="form-group">
+                <label for="telephone">Téléphone *</label>
+                <input type="tel" id="telephone" name="telephone" required placeholder="06 XX XX XX XX">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="date">Date *</label>
+                <input type="date" id="date" name="date" required>
+              </div>
+              
+              <div class="form-group">
+                <label for="court">Court *</label>
+                <select id="court" name="court" required>
+                  <option value="">Sélectionner un court</option>
+                  <option value="court1">Court 1 - Indoor</option>
+                  <option value="court2">Court 2 - Indoor</option>
+                  <option value="court3">Court 3 - Indoor</option>
+                  <option value="court4">Court 4 - Indoor</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Horaire *</label>
+              <div class="time-slots">
+                <div class="time-slot" onclick="selectTime(this, '08:00')">08:00</div>
+                <div class="time-slot" onclick="selectTime(this, '09:30')">09:30</div>
+                <div class="time-slot" onclick="selectTime(this, '11:00')">11:00</div>
+                <div class="time-slot" onclick="selectTime(this, '13:00')">13:00</div>
+                <div class="time-slot" onclick="selectTime(this, '14:30')">14:30</div>
+                <div class="time-slot" onclick="selectTime(this, '16:00')">16:00</div>
+                <div class="time-slot" onclick="selectTime(this, '17:30')">17:30</div>
+                <div class="time-slot" onclick="selectTime(this, '19:00')">19:00</div>
+                <div class="time-slot" onclick="selectTime(this, '20:30')">20:30</div>
+              </div>
+              <input type="hidden" id="selectedTime" name="selectedTime" required>
+            </div>
+
+            <div class="form-group">
+              <label for="joueurs">Nombre de joueurs *</label>
+              <select id="joueurs" name="joueurs" required>
+                <option value="">Sélectionner</option>
+                <option value="2">2 joueurs</option>
+                <option value="4">4 joueurs</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="message">Message (optionnel)</label>
+              <textarea id="message" name="message" rows="4" placeholder="Des informations supplémentaires ?"></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn">
+              <i class="fas fa-check-circle"></i> Confirmer la réservation
+            </button>
+          </form>
+        </div>
+
+        <!-- SIDEBAR -->
+        <div class="pricing-sidebar">
+          <!-- PRICING -->
+          <div class="pricing-card">
+            <h3><i class="fas fa-tag"></i> Tarifs</h3>
+            <div class="price-item">
+              <span class="price-label">1h30 en semaine</span>
+              <span class="price-value">35€</span>
+            </div>
+            <div class="price-item">
+              <span class="price-label">1h30 weekend</span>
+              <span class="price-value">45€</span>
+            </div>
+            <div class="price-item">
+              <span class="price-label">Abonnement 10h</span>
+              <span class="price-value">300€</span>
+            </div>
+            <div class="price-item">
+              <span class="price-label">Cours particulier</span>
+              <span class="price-value">60€/h</span>
+            </div>
+          </div>
+
+          <!-- INFO -->
+          <div class="info-card">
+            <h3><i class="fas fa-info-circle"></i> À savoir</h3>
+            <ul>
+              <li>Réservation 1h30 minimum</li>
+              <li>Annulation gratuite 24h avant</li>
+              <li>Matériel disponible sur place</li>
+              <li>Vestiaires et douches inclus</li>
+              <li>Paiement sur place ou en ligne</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>SGPC Club</h3>
+        <p>Votre club de padel premium pour tous les niveaux. Rejoignez notre communauté passionnée !</p>
+      </div>
+      
+      <div class="footer-section">
+        <h3>Liens Rapides</h3>
+        <a href="index.html">Accueil</a>
+        <a href="partenaires.html">Nos Partenaires</a>
+        <a href="reservation.html">Réserver</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      
+      <div class="footer-section">
+        <h3>Contact</h3>
+        <p><i class="fas fa-map-marker-alt"></i> Votre Ville, France</p>
+        <p><i class="fas fa-phone"></i> 06 XX XX XX XX</p>
+        <p><i class="fas fa-envelope"></i> contact@sgpc-padel.fr</p>
+      </div>
+      
+      <div class="footer-section">
+        <h3>Horaires</h3>
+        <p>Lundi - Vendredi: 8h - 23h</p>
+        <p>Samedi - Dimanche: 9h - 22h</p>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>&copy; 2025 SGPC - Club de Padel - Tous droits réservés</p>
+    </div>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      const navLinks = document.querySelector('.nav-links');
+      navLinks.classList.toggle('active');
+    }
+    
+    document.querySelectorAll('.nav-links ul li a').forEach(link => {
+      link.addEventListener('click', () => {
+        const navLinks = document.querySelector('.nav-links');
+        navLinks.classList.remove('active');
+      });
+    });
+
+    // Time slot selection
+    function selectTime(element, time) {
+      if (element.classList.contains('unavailable')) return;
+      
+      document.querySelectorAll('.time-slot').forEach(slot => {
+        slot.classList.remove('selected');
+      });
+      
+      element.classList.add('selected');
+      document.getElementById('selectedTime').value = time;
+    }
+
+    // Set min date to today
+    const dateInput = document.getElementById('date');
+    const today = new Date().toISOString().split('T')[0];
+    dateInput.min = today;
+
+    // Form submission
+    function handleSubmit(event) {
+      event.preventDefault();
+      
+      const selectedTime = document.getElementById('selectedTime').value;
+      if (!selectedTime) {
+        alert('Veuillez sélectionner un horaire');
+        return;
+      }
+      
+      const formData = new FormData(event.target);
+      const data = Object.fromEntries(formData);
+      
+      // Here you would normally send the data to a server
+      console.log('Reservation data:', data);
+      
+      alert('Réservation confirmée ! Vous recevrez un email de confirmation.');
+      event.target.reset();
+      document.querySelectorAll('.time-slot').forEach(slot => {
+        slot.classList.remove('selected');
+      });
+    }
+  </script>
+</body>
+</html>
